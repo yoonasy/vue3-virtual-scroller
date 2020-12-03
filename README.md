@@ -1,7 +1,7 @@
-# vue-virtual-scroller
+# vue3-virtual-scroller
 
-[![npm](https://img.shields.io/npm/v/vue-virtual-scroller.svg) ![npm](https://img.shields.io/npm/dm/vue-virtual-scroller.svg)](https://www.npmjs.com/package/vue-virtual-scroller)
-[![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
+[![npm](https://img.shields.io/npm/v/vue3-virtual-scroller.svg) ![npm](https://img.shields.io/npm/dm/vue3-virtual-scroller.svg)](https://www.npmjs.com/package/vue3-virtual-scroller)
+[![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://v3.vuejs.org/)
 
 Blazing fast scrolling of any amount of data | [Live demo](https://akryum.github.io/vue-virtual-scroller/) | [Video demo](https://www.youtube.com/watch?v=Uzq1KQV8f4k)
 
@@ -28,56 +28,54 @@ Blazing fast scrolling of any amount of data | [Live demo](https://akryum.github
 # Installation
 
 ```
-npm install --save vue-virtual-scroller
+npm install --save vue3-virtual-scroller
 ```
 
-**⚠️ `vue-virtual-scroller` now uses [vue-observe-visibility](https://github.com/Akryum/vue-observe-visibility#installation) to automatically refresh itself when shown to prevent display glitches. This means you need to include the [Intersection Observer polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) needed by `vue-observe-visibility` for this to work in old browsers (like Internet Explorer).**
+**⚠️ `vue3-virtual-scroller` now uses [vue-observe-visibility](https://github.com/Akryum/vue-observe-visibility#installation) to automatically refresh itself when shown to prevent display glitches. This means you need to include the [Intersection Observer polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) needed by `vue-observe-visibility` for this to work in old browsers (like Internet Explorer).**
 
 ## Default import
 
 Install all the components:
 
 ```javascript
-import Vue from 'vue'
-import VueVirtualScroller from 'vue-virtual-scroller'
+import VueVirtualScroller from 'vue3-virtual-scroller'
 
-Vue.use(VueVirtualScroller)
+app.use(VueVirtualScroller)
 ```
 
 Use specific components:
 
 ```javascript
-import Vue from 'vue'
-import { RecycleScroller } from 'vue-virtual-scroller'
+import { RecycleScroller } from 'vue3-virtual-scroller'
 
-Vue.component('RecycleScroller', RecycleScroller)
+app.component('RecycleScroller', RecycleScroller)
 ```
 
 **⚠️ The line below should be included when importing the package:**
 
 ```js
-import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import 'vue3-virtual-scroller/dist/vue3-virtual-scroller.css'
 ```
 
 ## Browser
 
 ```html
-<link rel="stylesheet" href="vue-virtual-scroller/dist/vue-virtual-scroller.css"/>
+<link rel="stylesheet" href="vue3-virtual-scroller/dist/vue3-virtual-scroller.css"/>
 
 <script src="vue.js"></script>
-<script src="vue-virtual-scroller/dist/vue-virtual-scroller.min.js"></script>
+<script src="vue3-virtual-scroller/dist/vue3-virtual-scroller.min.js"></script>
 ```
 
 If Vue is detected, the plugin will be installed automatically. If not, install the component:
 
 ```javascript
-Vue.use(VueVirtualScroller)
+app.use(VueVirtualScroller)
 ```
 
 Or register it with a custom name:
 
 ```javascript
-Vue.component('RecycleScroller', VueVirtualScroller.RecycleScroller)
+app.component('RecycleScroller', VueVirtualScroller.RecycleScroller)
 ```
 
 # Usage
@@ -116,11 +114,13 @@ Use the scoped slot to render each item in the list:
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   props: {
     list: Array,
   },
-}
+})
 </script>
 
 <style scoped>
@@ -348,11 +348,13 @@ This works just like the RecycleScroller, but it can render items with unknown s
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   props: {
     items: Array,
   },
-}
+})
 </script>
 
 <style scoped>
@@ -431,9 +433,10 @@ In this example, we use the `id` of the `item` to have a "scoped" state to the i
 </template>
 
 <script>
-import { IdState } from 'vue-virtual-scroller'
+import { IdState } from 'vue3-virtual-scroller'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   mixins: [
     IdState({
       // You can customize this
