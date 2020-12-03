@@ -31,6 +31,8 @@ export default {
       output: styles => {
         const file = require.resolve('vue3-resize/dist/vue3-resize.css')
         styles += fs.readFileSync(file, { encoding: 'utf8' })
+
+        try { fs.mkdirSync('dist/') } catch {}
         fs.writeFileSync('dist/vue3-virtual-scroller.css', new CleanCSS().minify(styles).styles)
       },
     }),

@@ -8,7 +8,8 @@ const config = Object.assign({}, base, {
     file: 'dist/vue3-virtual-scroller.min.js',
     format: 'iife',
     sourcemap: true,
-    global: {
+    externalLiveBindings: false,
+    globals: {
       vue: 'Vue',
     },
   },
