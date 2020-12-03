@@ -14,7 +14,7 @@
           min="0"
           max="500000"
         > items
-        <button @click="addItem()">+1</button>
+        <button @click="onAddItem()">+1</button>
       </span>
       <label>
         <input
@@ -92,98 +92,91 @@
   </div>
 </template>
 
-<script>
-import { getData, addItem } from '../data'
+<script lang="ts">
+import {
+  defineComponent, computed, ref, watch, onMounted, nextTick,
+} from 'vue'
+import { getData, addItem, List } from '../data'
 
 import Person from './Person.vue'
 
-export default {
+export default defineComponent({
   components: {
     Person,
   },
 
-  data: () => ({
-    items: [],
-    count: 10000,
-    renderScroller: true,
-    showScroller: true,
-    scopedSlots: false,
-    buffer: 200,
-    poolSize: 2000,
-    enableLetters: true,
-    pageMode: false,
-    pageModeFullPage: true,
-  }),
+  setup() {
+    const count = ref(10000)
+    const scroller = ref<any | null>(null)
+    const items = ref<List[]>([])
+    const enableLetters = ref(true)
 
-  computed: {
-    countInput: {
-      get () {
-        return this.count
+    const countInput = computed({
+      get() {
+        return String(count.value)
       },
-      set (val) {
-        if (val > 500000) {
-          val = 500000
-        } else if (val < 0) {
-          val = 0
+      set(val: string) {
+        let v = +val
+        if (v > 500000) {
+          v = 500000
+        } else if (v < 0) {
+          v = 0
         }
-        this.count = val
+        count.value = v
       },
-    },
+    })
 
-    itemHeight () {
-      return this.enableLetters ? null : 50
-    },
+    const itemHeight = computed(() => (enableLetters.value ? null : 50))
 
-    list () {
-      return this.items.map(
-        item => Object.assign({}, {
-          random: Math.random(),
-        }, item)
-      )
-    },
-  },
+    const list = computed(() => items.value.map(
+      (item: List) => ({ random: Math.random(), ...item }),
+    ))
 
-  watch: {
-    count () {
-      this.generateItems()
-    },
-    enableLetters () {
-      this.generateItems()
-    },
-  },
+    const generateItems = () => {
+      console.log(`Generating ${count.value} items...`)
+      const time = Date.now()
+      const innerItems = getData(count.value, enableLetters.value)
+      console.log(`Generated ${items.value.length} in ${Date.now() - time}ms`)
 
-  mounted () {
-    this.$nextTick(this.generateItems)
-    window.scroller = this.$refs.scroller
-  },
+      items.value = innerItems
+    }
 
-  methods: {
-    generateItems () {
-      console.log('Generating ' + this.count + ' items...')
-      let time = Date.now()
-      const items = getData(this.count, this.enableLetters)
-      console.log('Generated ' + items.length + ' in ' + (Date.now() - time) + 'ms')
-      this._dirty = true
-      this.items = items
-    },
+    const onAddItem = () => {
+      addItem(items.value)
+    }
 
-    addItem () {
-      addItem(this.items)
-    },
-
-    onUpdate (startIndex, endIndex) {
-      this.updateCount++
-    },
-
-    onVisible () {
+    const onVisible = () => {
       console.log('visible')
-    },
+    }
 
-    onHidden () {
+    const onHidden = () => {
       console.log('hidden')
-    },
+    }
+
+    watch(count, generateItems)
+    watch(enableLetters, generateItems)
+
+    onMounted(() => nextTick(generateItems))
+
+    return {
+      list,
+      onHidden,
+      scroller,
+      onAddItem,
+      onVisible,
+      countInput,
+      itemHeight,
+      renderScroller: true,
+      showScroller: true,
+      scopedSlots: false,
+      buffer: 200,
+      poolSize: 2000,
+      enableLetters,
+      pageMode: false,
+      pageModeFullPage: true,
+    }
   },
-}
+})
 </script>
 
 <style scoped>

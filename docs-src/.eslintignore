@@ -1,0 +1,4 @@
+node_modules/
+dist/**
+../vue-observe-visibility/dist/**/
+**/dist/

@@ -2,13 +2,12 @@ module.exports = {
   root: true,
   parserOptions: {
     parser: 'babel-eslint',
-    ecmaVersion: 2017,
-    sourceType: 'module'
+    ecmaVersion: 2020,
+    sourceType: 'module',
   },
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
   extends: [
-    'standard',
-    'plugin:vue/recommended',
+    'plugin:vue/vue3-recommended',
   ],
   // required to lint *.vue files
   plugins: [
@@ -18,7 +17,9 @@ module.exports = {
     browser: true,
   },
   // add your custom rules here
-  'rules': {
+  rules: {
+    'semi': 0,
+    '@typescript-eslint/ban-ts-ignore': 0,
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
@@ -27,5 +28,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     // trailing comma
     'comma-dangle': ['error', 'always-multiline'],
-  }
-}
+    'vue/custom-event-name-casing': 0,
+    'vue/comment-directive': 0,
+    'import/no-cycle': 0,
+  },
+};

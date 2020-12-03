@@ -38,7 +38,7 @@
             width: `${Math.max(130, Math.round(item.message.length / 20 * 20))}px`,
           }"
           class="message"
-          @click.native="changeMessage(item)"
+          @click="changeMessage(item)"
         >
           <div class="avatar">
             <img
@@ -61,10 +61,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { generateMessage } from '../data'
 
-const items = []
+const items: any[] = []
 for (let i = 0; i < 10000; i++) {
   items.push({
     id: i,
@@ -72,30 +73,30 @@ for (let i = 0; i < 10000; i++) {
   })
 }
 
-export default {
-  data () {
+export default defineComponent({
+  data() {
     return {
-      items,
+      item: items,
       search: '',
       dismissInfo: false,
     }
   },
 
   computed: {
-    filteredItems () {
-      const { search, items } = this
-      if (!search) return items
+    filteredItems() {
+      const { search, item } = this as any
+      if (!search) return item
       const lowerCaseSearch = search.toLowerCase()
-      return items.filter(i => i.message.toLowerCase().includes(lowerCaseSearch))
+      return item.filter((i) => i.message.toLowerCase().includes(lowerCaseSearch))
     },
   },
 
   methods: {
-    changeMessage (message) {
+    changeMessage(message) {
       Object.assign(message, generateMessage())
     },
   },
-}
+})
 </script>
 
 <style scoped>

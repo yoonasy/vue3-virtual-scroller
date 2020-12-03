@@ -2,9 +2,8 @@ import config from './config'
 
 import RecycleScroller from './components/RecycleScroller.vue'
 import DynamicScroller from './components/DynamicScroller.vue'
-import DynamicScrollerItem from './components/DynamicScrollerItem.vue'
-
-export { default as IdState } from './mixins/IdState'
+import DynamicScrollerItem from './components/DynamicScrollerItem.js'
+import { version } from '../package.json'
 
 export {
   RecycleScroller,
@@ -12,19 +11,18 @@ export {
   DynamicScrollerItem,
 }
 
-function registerComponents (Vue, prefix) {
-  Vue.component(`${prefix}recycle-scroller`, RecycleScroller)
-  Vue.component(`${prefix}RecycleScroller`, RecycleScroller)
-  Vue.component(`${prefix}dynamic-scroller`, DynamicScroller)
-  Vue.component(`${prefix}DynamicScroller`, DynamicScroller)
-  Vue.component(`${prefix}dynamic-scroller-item`, DynamicScrollerItem)
-  Vue.component(`${prefix}DynamicScrollerItem`, DynamicScrollerItem)
+function registerComponents (app, prefix) {
+  app.component(`${prefix}recycle-scroller`, RecycleScroller)
+  app.component(`${prefix}RecycleScroller`, RecycleScroller)
+  app.component(`${prefix}dynamic-scroller`, DynamicScroller)
+  app.component(`${prefix}DynamicScroller`, DynamicScroller)
+  app.component(`${prefix}dynamic-scroller-item`, DynamicScrollerItem)
+  app.component(`${prefix}DynamicScrollerItem`, DynamicScrollerItem)
 }
 
 const plugin = {
-  // eslint-disable-next-line no-undef
-  version: VERSION,
-  install (Vue, options) {
+  version,
+  install (app, options) {
     const finalOptions = Object.assign({}, {
       installComponents: true,
       componentsPrefix: '',
@@ -37,20 +35,9 @@ const plugin = {
     }
 
     if (finalOptions.installComponents) {
-      registerComponents(Vue, finalOptions.componentsPrefix)
+      registerComponents(app, finalOptions.componentsPrefix)
     }
   },
 }
 
 export default plugin
-
-// Auto-install
-let GlobalVue = null
-if (typeof window !== 'undefined') {
-  GlobalVue = window.Vue
-} else if (typeof global !== 'undefined') {
-  GlobalVue = global.Vue
-}
-if (GlobalVue) {
-  GlobalVue.use(plugin)
-}

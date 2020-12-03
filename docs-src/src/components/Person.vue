@@ -16,24 +16,27 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   props: ['item', 'index'],
 
-  created () {
+  created() {
     console.log('created')
   },
 
-  destroyed () {
+  beforeUnmount() {
     console.log('destroyed')
   },
 
   methods: {
-    edit () {
-      this.item.value.name += '#'
+    edit() {
+      // eslint-disable-next-line vue/no-mutating-props
+      ((this.item as any).value as any).name += '#'
     },
   },
-}
+})
 </script>
 
 <style scoped>

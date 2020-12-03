@@ -10,7 +10,7 @@
     @visible="onScrollerVisible"
     v-on="listeners"
   >
-    <template slot-scope="{ item: itemWithSize, index, active }">
+    <template #default="{ item: itemWithSize, index, active }">
       <slot
         v-bind="{
           item: itemWithSize.item,
@@ -20,10 +20,10 @@
         }"
       />
     </template>
-    <template slot="before">
+    <template #before>
       <slot name="before" />
     </template>
-    <template slot="after">
+    <template #after>
       <slot name="after" />
     </template>
   </RecycleScroller>
@@ -40,16 +40,14 @@ export default {
     RecycleScroller,
   },
 
-  inheritAttrs: false,
-
   provide () {
+    let vscrollResizeObserver = undefined
+
     if (typeof ResizeObserver !== 'undefined') {
-      this.$_resizeObserver = new ResizeObserver(entries => {
+      vscrollResizeObserver = new ResizeObserver(entries => {
         for (const entry of entries) {
           if (entry.target) {
-            const event = new CustomEvent(
-              'resize',
-              {
+            const event = new CustomEvent('resize', {
                 detail: {
                   contentRect: entry.contentRect,
                 },
@@ -64,9 +62,12 @@ export default {
     return {
       vscrollData: this.vscrollData,
       vscrollParent: this,
-      vscrollResizeObserver: this.$_resizeObserver,
+      vscrollResizeObserver,
+      onUpdateScroll: (cb) => this.vScrollMap.push(cb),
     }
   },
+
+  inheritAttrs: false,
 
   props: {
     ...props,
@@ -77,6 +78,8 @@ export default {
     },
   },
 
+  emits: ['vscroll:update', 'resize', 'visible'],
+
   data () {
     return {
       vscrollData: {
@@ -86,6 +89,7 @@ export default {
         keyField: this.keyField,
         simpleArray: false,
       },
+      vScrollMap: [],
     }
   },
 
@@ -114,11 +118,15 @@ export default {
 
     listeners () {
       const listeners = {}
-      for (const key in this.$listeners) {
-        if (key !== 'resize' && key !== 'visible') {
-          listeners[key] = this.$listeners[key]
+
+      for (const key in this.$attrs) {
+        if (key.startsWith('on')) {
+          if (key !== 'onResize' && key !== 'onVisible') {
+            listeners[key] = this.$attrs
+          }
         }
       }
+
       return listeners
     },
   },
@@ -164,15 +172,22 @@ export default {
     },
 
     onScrollerVisible () {
-      this.$emit('vscroll:update', { force: false })
+      this.vScrollUpdate(false)
       this.$emit('visible')
+    },
+
+    vScrollUpdate(force = false) {
+      const data = { force }
+      this.$emit('vscroll:update', data)
+
+      this.vScrollMap.forEach(callback => callback(data))
     },
 
     forceUpdate (clear = true) {
       if (clear || this.simpleArray) {
         this.vscrollData.validSizes = {}
       }
-      this.$emit('vscroll:update', { force: true })
+      this.vScrollUpdate(true)
     },
 
     scrollToItem (index) {

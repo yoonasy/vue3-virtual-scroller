@@ -43,7 +43,7 @@
           :data-active="active"
           :title="`Click to change message ${index}`"
           class="message"
-          @click.native="changeMessage(item)"
+          @click="changeMessage(item)"
         >
           <div class="avatar">
             <img
@@ -66,44 +66,45 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { generateMessage } from '../data'
 
 let id = 0
 
-const messages = []
+const messages: any[] = []
 for (let i = 0; i < 10000; i++) {
   messages.push(generateMessage())
 }
 
-export default {
-  data () {
+export default defineComponent({
+  data() {
     return {
-      items: [],
+      items: [] as any[],
       search: '',
       streaming: false,
     }
   },
 
   computed: {
-    filteredItems () {
-      const { search, items } = this
+    filteredItems() {
+      const { search, items } = this as any
       if (!search) return items
       const lowerCaseSearch = search.toLowerCase()
-      return items.filter(i => i.message.toLowerCase().includes(lowerCaseSearch))
+      return items.filter((i) => i.message.toLowerCase().includes(lowerCaseSearch))
     },
   },
 
-  destroyed () {
-    this.stopStream()
+  beforeUnmount() {
+    this.streaming = false
   },
 
   methods: {
-    changeMessage (message) {
+    changeMessage(message) {
       Object.assign(message, generateMessage())
     },
 
-    addMessage () {
+    addMessage() {
       for (let i = 0; i < 10; i++) {
         this.items.push({
           id: id++,
@@ -117,21 +118,21 @@ export default {
       }
     },
 
-    scrollToBottom () {
-      this.$refs.scroller.scrollToBottom()
+    scrollToBottom() {
+      (this.$refs.scroller as any).scrollToBottom()
     },
 
-    startStream () {
+    startStream() {
       if (this.streaming) return
       this.streaming = true
       this.addMessage()
     },
 
-    stopStream () {
+    stopStream() {
       this.streaming = false
     },
   },
-}
+})
 </script>
 
 <style scoped>

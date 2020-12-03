@@ -4,10 +4,13 @@ import { terser } from 'rollup-plugin-terser'
 const config = Object.assign({}, base, {
   output: {
     exports: 'named',
-    name: 'VueVirtualScroller',
-    file: 'dist/vue-virtual-scroller.min.js',
+    name: 'Vue3VirtualScroller',
+    file: 'dist/vue3-virtual-scroller.min.js',
     format: 'iife',
     sourcemap: true,
+    global: {
+      vue: 'Vue',
+    },
   },
 })
 

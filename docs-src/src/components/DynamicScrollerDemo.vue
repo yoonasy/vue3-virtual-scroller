@@ -4,7 +4,7 @@
       <input
         v-model="search"
         placeholder="Filter..."
-      >
+      />
     </div>
 
     <DynamicScroller
@@ -29,7 +29,7 @@
           :data-active="active"
           :title="`Click to change message ${index}`"
           class="message"
-          @click.native="changeMessage(item)"
+          @click="changeMessage(item)"
         >
           <div class="avatar">
             <img
@@ -52,36 +52,36 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { generateMessage } from '../data'
 
-const items = []
+const itemsArr: any[] = []
 for (let i = 0; i < 10000; i++) {
-  items.push({
+  itemsArr.push({
     id: i,
     ...generateMessage(),
   })
 }
 
 export default {
-  data () {
+  data() {
     return {
-      items,
+      items: itemsArr,
       search: '',
     }
   },
 
   computed: {
-    filteredItems () {
-      const { search, items } = this
+    filteredItems() {
+      const { search, items } = this as any
       if (!search) return items
       const lowerCaseSearch = search.toLowerCase()
-      return items.filter(i => i.message.toLowerCase().includes(lowerCaseSearch))
+      return items.filter((i) => i.message.toLowerCase().includes(lowerCaseSearch))
     },
   },
 
   methods: {
-    changeMessage (message) {
+    changeMessage(message: any) {
       Object.assign(message, generateMessage())
     },
   },

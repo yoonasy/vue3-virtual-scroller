@@ -18,14 +18,13 @@
       :min-item-size="54"
       class="scroller"
     >
-      <div
-        slot="before-container"
-        class="notice"
-      >
-        Array of simple strings (no objects).
-      </div>
+      <template #before-container>
+        <div class="notice">
+          Array of simple strings (no objects).
+        </div>
+      </template>
 
-      <template slot-scope="{ item, index, active }">
+      <template v-slot="{ item, index, active }">
         <DynamicScrollerItem
           :item="item"
           :index="index"
@@ -50,7 +49,7 @@
       :item-height="54"
       class="scroller"
     >
-      <template slot-scope="{ item, index }">
+      <template v-slot="{ item, index }">
         <div class="message">
           <div class="text">
             {{ item }}
@@ -64,29 +63,29 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { generateMessage } from '../data'
 
-const items = []
+const items: string[] = []
 for (let i = 0; i < 10000; i++) {
   items.push(generateMessage().message)
 }
 
 export default {
-  data () {
+  data() {
     return {
-      items,
+      item: items,
       search: '',
       dynamic: true,
     }
   },
 
   computed: {
-    filteredItems () {
-      const { search, items } = this
-      if (!search) return items
+    filteredItems() {
+      const { search, item } = this as any
+      if (!search) return item
       const lowerCaseSearch = search.toLowerCase()
-      return items.filter(i => i.toLowerCase().includes(lowerCaseSearch))
+      return item.filter((i) => i.toLowerCase().includes(lowerCaseSearch))
     },
   },
 }

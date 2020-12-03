@@ -2,33 +2,41 @@ import faker from 'faker'
 
 let uid = 0
 
-function generateItem () {
+function generateItem() {
   return {
     name: faker.name.findName(),
     avatar: faker.internet.avatar(),
   }
 }
 
-export function getData (count, letters) {
+export type List = {
+  id: number;
+  index: number;
+  type: string;
+  value: string;
+  height: number;
+}
+
+export function getData(count, letters) {
   const raw = {}
 
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
-  for (var l of alphabet) {
+  for (const l of alphabet) {
     raw[l] = []
   }
 
-  for (var i = 0; i < count; i++) {
+  for (let i = 0; i < count; i++) {
     const item = generateItem()
     const letter = item.name.charAt(0).toLowerCase()
     raw[letter].push(item)
   }
 
-  const list = []
+  const list: List[] = []
   let index = 1
 
   for (const l of alphabet) {
-    raw[l] = raw[l].sort((a, b) => a.name < b.name ? -1 : 1)
+    raw[l] = raw[l].sort((a, b) => (a.name < b.name ? -1 : 1))
     if (letters) {
       list.push({
         id: uid++,
@@ -38,7 +46,7 @@ export function getData (count, letters) {
         height: 200,
       })
     }
-    for (var item of raw[l]) {
+    for (const item of raw[l]) {
       list.push({
         id: uid++,
         index: index++,
@@ -52,7 +60,7 @@ export function getData (count, letters) {
   return list
 }
 
-export function addItem (list) {
+export function addItem(list) {
   list.push({
     id: uid++,
     index: list.length + 1,
@@ -62,7 +70,7 @@ export function addItem (list) {
   })
 }
 
-export function generateMessage () {
+export function generateMessage(): { avatar: string; message: string } {
   return {
     avatar: faker.internet.avatar(),
     message: faker.lorem.text(),

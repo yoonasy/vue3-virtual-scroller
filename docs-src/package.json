@@ -1,38 +1,56 @@
 {
-  "name": "vue-virtual-scroller-docs",
-  "description": "Docs for vue-virtual-scroller",
+  "name": "vue3-virtual-scroller-docs",
+  "description": "Docs for vue3-virtual-scroller",
   "version": "1.0.0",
   "author": "Guillaume Chau <guillaume.b.chau@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
-    "devp": "cross-env NODE_ENV=production webpack-dev-server --inline --hot --progress",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "faker": "^4.1.0",
-    "vue": "^2.6.11",
-    "vue-router": "^3.0.1"
+    "core-js": "^3.6.5",
+    "faker": "^5.1.0",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/polyfill": "^7.2.5",
-    "@babel/preset-env": "^7.1.0",
-    "autoprefixer": "^9.1.5",
-    "babel-loader": "^8.0.4",
-    "cross-env": "^5.0.0",
-    "css-loader": "^1.0.0",
-    "file-loader": "^2.0.0",
-    "postcss-loader": "^3.0.0",
-    "vue-loader": "^15.2.0",
-    "vue-template-compiler": "^2.5.17",
-    "webpack": "^4.10.0",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.0"
+    "@types/faker": "^5.1.4",
+    "@types/jest": "^24.0.19",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-e2e-cypress": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "@vue/test-utils": "^2.0.0-0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-vue": "^7.0.0-0",
+    "lint-staged": "^9.5.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "typescript": "~3.9.3",
+    "vue-jest": "^5.0.0-0"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
 }

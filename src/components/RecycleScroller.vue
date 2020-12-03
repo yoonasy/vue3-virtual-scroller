@@ -54,16 +54,18 @@
 </template>
 
 <script>
-import { ResizeObserver } from 'vue-resize'
-import { ObserveVisibility } from 'vue-observe-visibility'
+import { ResizeObserver } from 'vue3-resize'
+// import { ObserveVisibility } from 'vue3-observe-visibility2'
+import { ObserveVisibility } from '/Users/cssr/project_ex/vue-observe-visibility/dist/vue3-observe-visibility2.esm.js'
 import ScrollParent from 'scrollparent'
 import config from '../config'
-import { props, simpleArray } from './common'
-import { supportsPassive } from '../utils'
+import {props, simpleArray} from './common'
+import {supportsPassive} from '../utils'
+import {defineComponent} from 'vue'
 
 let uid = 0
 
-export default {
+export default defineComponent({
   name: 'RecycleScroller',
 
   components: {
@@ -117,6 +119,8 @@ export default {
       default: false,
     },
   },
+
+  emits: ['visible', 'hidden', 'resize', 'update'],
 
   data () {
     return {
@@ -201,7 +205,7 @@ export default {
     })
   },
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.removeListeners()
   },
 
@@ -211,17 +215,13 @@ export default {
         item,
         position: 0,
       }
-      const nonReactive = {
+      view.nr = {
         id: uid++,
         index,
         used: true,
         key,
         type,
       }
-      Object.defineProperty(view, 'nr', {
-        configurable: false,
-        value: nonReactive,
-      })
       pool.push(view)
       return view
     },
@@ -592,7 +592,7 @@ export default {
       this.pool.sort((viewA, viewB) => viewA.nr.index - viewB.nr.index)
     },
   },
-}
+})
 </script>
 
 <style>

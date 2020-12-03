@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="menu">
       <span class="package">
-        <span class="package-name">vue-virtual-scroller</span>
+        <span class="package-name">vue3-virtual-scroller</span>
       </span>
 
       <router-link

@@ -3,12 +3,12 @@
     <h1>Virtual scrolling solutions</h1>
 
     <div class="badges">
-      <a href="https://www.npmjs.com/package/vue-virtual-scroller" target="_blank">
-        <img src="https://img.shields.io/npm/v/vue-virtual-scroller.svg" alt="version">
-        <img src="https://img.shields.io/npm/dm/vue-virtual-scroller.svg" alt="downloads">
+      <a href="https://www.npmjs.com/package/vue3-virtual-scroller" target="_blank">
+        <img src="https://img.shields.io/npm/v/vue3-virtual-scroller.svg" alt="version">
+        <img src="https://img.shields.io/npm/dm/vue3-virtual-scroller.svg" alt="downloads">
       </a>
       <a href="https://vuejs.org/" target="_blank">
-        <img src="https://img.shields.io/badge/vue-2.x-brightgreen.svg" alt="vue version">
+        <img src="https://img.shields.io/badge/vue-3.x-brightgreen.svg" alt="vue version">
       </a>
     </div>
 

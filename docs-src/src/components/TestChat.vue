@@ -19,54 +19,62 @@
       class="scroller"
       @resize="scrollToBottom()"
     >
-      <DynamicScrollerItem
-        slot-scope="{ item, index, active }"
-        :item="item"
-        :active="active"
-        :data-index="index"
-      >
-        <div
-          class="message"
-          :style="{
-            height: `${item.size}px`,
-          }"
+      <template v-slot="{ item, index, active }">
+        <DynamicScrollerItem
+          :item="item"
+          :active="active"
+          :data-index="index"
         >
-          {{ item.text }}
-        </div>
-      </DynamicScrollerItem>
+          <div
+            class="message"
+            :style="{
+              height: `${item.size}px`,
+            }"
+          >
+            {{ item.text }}
+          </div>
+        </DynamicScrollerItem>
+      </template>
     </DynamicScroller>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import faker from 'faker'
+import { defineComponent, ref } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'TestChat',
 
-  data () {
-    return {
-      items: [],
-    }
-  },
+  setup() {
+    const items = ref<{ text: string; id: number; size: number }[]>([])
+    const scroller = ref<any>(null)
 
-  methods: {
-    addItems (count = 1) {
+    const scrollToBottom = () => {
+      if (!scroller.value) return
+
+      scroller.value.scrollToBottom()
+    }
+
+    const addItems = (count = 1) => {
       for (let i = 0; i < count; i++) {
-        this.items.push({
+        items.value.push({
           text: faker.lorem.sentence(),
-          id: this.items.length + 1,
+          id: items.value.length + 1,
           size: Math.random() * 120 + 40,
         })
       }
-      this.scrollToBottom()
-    },
+      scrollToBottom()
+    }
 
-    scrollToBottom () {
-      this.$refs.scroller.scrollToBottom()
-    },
+    return {
+      items,
+      scroller,
+      addItems,
+      scrollToBottom,
+    }
   },
-}
+})
 </script>
 
 <style scoped>
