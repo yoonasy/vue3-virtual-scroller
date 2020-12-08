@@ -55,11 +55,9 @@
 
 <script>
 import { ResizeObserver } from 'vue3-resize'
-// import { ObserveVisibility } from 'vue3-observe-visibility2'
 import { ObserveVisibility } from '/Users/cssr/project_ex/vue-observe-visibility/dist/vue3-observe-visibility2.esm.js'
-import ScrollParent from 'scrollparent'
 import config from '../config'
-import {props, simpleArray} from './common'
+import { props, simpleArray, scrollParent } from './common'
 import {supportsPassive} from '../utils'
 import {defineComponent} from 'vue'
 
@@ -491,7 +489,7 @@ export default defineComponent({
     },
 
     getListenerTarget () {
-      let target = ScrollParent(this.$el)
+      let target = scrollParent(this.$el)
       // Fix global scroll target for Chrome and Safari
       if (window.document && (target === window.document.documentElement || target === window.document.body)) {
         target = window
