@@ -16,7 +16,7 @@ export const props = {
   },
 }
 
-export const scrollParent = () => {
+export const scrollParent = (node) => {
   const regex = /(auto|scroll)/;
 
   function parents (node, ps) {
@@ -52,7 +52,7 @@ export const scrollParent = () => {
     return document.scrollingElement || document.documentElement;
   }
 
-  return scrollParent;
+  return scrollParent(node);
 }
 
 export function simpleArray () {
