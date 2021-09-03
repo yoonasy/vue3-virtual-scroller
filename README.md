@@ -3,6 +3,8 @@
 [![npm](https://img.shields.io/npm/v/vue3-virtual-scroller.svg) ![npm](https://img.shields.io/npm/dm/vue3-virtual-scroller.svg)](https://www.npmjs.com/package/vue3-virtual-scroller)
 [![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://v3.vuejs.org/)
 
+**⚠️this is fork project. Originally intended for emergency use. Please use the supported Vue3 version [`vue-virtual-scroller@next`](https://github.com/Akryum/vue-virtual-scroller/tree/next).**
+
 Blazing fast scrolling of any amount of data | [Live demo](https://akryum.github.io/vue-virtual-scroller/) | [Video demo](https://www.youtube.com/watch?v=Uzq1KQV8f4k)
 
 <p>
@@ -469,3 +471,5 @@ export default defineComponent({
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
+
+[vue-virtual-scroller@next]: https://github.com/Akryum/vue-virtual-scroller/tree/next

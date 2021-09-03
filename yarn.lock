@@ -7224,6 +7224,11 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
+vue-class-component@^7.1.0, vue-class-component@^7.2.3:
+  version "7.2.6"
+  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.2.6.tgz#8471e037b8e4762f5a464686e19e5afc708502e4"
+  integrity sha512-+eaQXVrAm/LldalI272PpDe3+i4mPis0ORiMYxF6Ae4hyuCh15W8Idet7wPUEs4N4YptgFHGys4UrgNQOMyO6w==
+
 vue-eslint-parser@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.1.1.tgz#c43c1c715ff50778b9a7e9a4e16921185f3425d3"
@@ -7236,17 +7241,34 @@ vue-eslint-parser@^7.1.1:
     esquery "^1.0.1"
     lodash "^4.17.15"
 
+vue-property-decorator@^8.4.2:
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/vue-property-decorator/-/vue-property-decorator-8.5.1.tgz#571a91cf8d2b507f537d79bf8275af3184572fff"
+  integrity sha512-O6OUN2OMsYTGPvgFtXeBU3jPnX5ffQ9V4I1WfxFQ6dqz6cOUbR3Usou7kgFpfiXDvV7dJQSFcJ5yUPgOtPPm1Q==
+  dependencies:
+    vue-class-component "^7.1.0"
+
 vue3-observe-visibility2@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/vue3-observe-visibility2/-/vue3-observe-visibility2-0.0.3.tgz#de8b494dd9002d815dab455ab859306a08c3a6a7"
   integrity sha512-yJL0G5RrI/uXdDrs+0fdlk/dYKhKBRZtkwJO0ar44NTIX+Rnw63iHgTz+p00M+yp6Avm1Q+o6y82h0hkTzmpHg==
+
+vue3-observe-visibility@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/vue3-observe-visibility/-/vue3-observe-visibility-0.1.2.tgz#2b81511b37cf1f41a174fe96ffb533fae7c5b831"
+  integrity sha512-Uh/PQin+E2aH2YsMxtTkFlI0gRxEP1pDJEKGKcvuxPDlqh+ZL0w0Xmu2a8+gQIdTmN15vRj8geHr/cU58tZVig==
+  dependencies:
+    core-js "^3.6.5"
+    vue "^3.0.0-beta.1"
+    vue-class-component "^7.2.3"
+    vue-property-decorator "^8.4.2"
 
 vue3-resize@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/vue3-resize/-/vue3-resize-0.2.0.tgz#a1f06468cb7add911dfe3cb980984fa865ea1c8b"
   integrity sha512-vZkbEv4PjMEWFV0igAxCvdSIH9hrIJjXyJ9XPTxH0cS/L2/VW1dLVORMWJKU0VXHpHiYKwskB62ju7aBQMVpOQ==
 
-vue@3.0.0:
+vue@3.0.0, vue@^3.0.0-beta.1:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.0.0.tgz#cfb5df5c34efce319b113a1667d12b74dcfd9c90"
   integrity sha512-ZMrAARZ32sGIaYKr7Fk2GZEBh/VhulSrGxcGBiAvbN4fhjl3tuJyNFbbbLFqGjndbLoBW66I2ECq8ICdvkKdJw==

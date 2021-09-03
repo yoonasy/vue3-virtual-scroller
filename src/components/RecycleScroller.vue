@@ -55,7 +55,7 @@
 
 <script>
 import { ResizeObserver } from 'vue3-resize'
-import { ObserveVisibility } from '/Users/cssr/project_ex/vue-observe-visibility/dist/vue3-observe-visibility2.esm.js'
+import { ObserveVisibility } from 'vue3-observe-visibility2'
 import config from '../config'
 import { props, simpleArray, scrollParent } from './common'
 import {supportsPassive} from '../utils'
